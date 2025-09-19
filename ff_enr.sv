@@ -1,12 +1,13 @@
-module ff_enr(
+module ff_enr #(parameter WIDTH = 32)
+(
     input clk,
     input rst_n,
     input en,
-    input [31:0] d,
-    output [31:0] q
+    input [WIDTH-1:0] d,
+    output [WIDTH-1:0] q
 );
 
-    logic [31:0] q_reg;
+    logic [WIDTH-1:0] q_reg;
     always_ff @(posedge clk or negedge rst_n) begin
         if(!rst_n)
             q_reg <= '0;
