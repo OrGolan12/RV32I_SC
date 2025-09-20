@@ -1,5 +1,5 @@
 $date
-	Sat Sep 20 20:29:46 2025
+	Sat Sep 20 20:53:45 2025
 $end
 $version
 	Icarus Verilog
@@ -19,6 +19,8 @@ $var wire 32 ' b [31:0] $end
 $var wire 1 ( Zero $end
 $var reg 32 ) y [31:0] $end
 $upscope $end
+$scope task check_alu_seq $end
+$upscope $end
 $upscope $end
 $enddefinitions $end
 $comment Show the parameter values. $end
@@ -26,36 +28,34 @@ $dumpall
 $end
 #0
 $dumpvars
-b10000 )
+b11111111111111111111111111111110 )
 0(
-b110 '
-b1010 &
+b11 '
+b11111111111111111111111111111011 &
 b0 %
-b110 $
-b1010 #
+b11 $
+b11111111111111111111111111111011 #
 b0 "
-b10000 !
+b11111111111111111111111111111110 !
 $end
 #1
-b100 !
-b100 )
+b11111111111111111111111111111000 !
+b11111111111111111111111111111000 )
 b1 "
 b1 %
 #2
-1(
-b0 !
-b0 )
+b1 !
+b1 )
 b101 "
 b101 %
 #3
-0(
-b1110 !
-b1110 )
+b11111111111111111111111111111011 !
+b11111111111111111111111111111011 )
 b11 "
 b11 %
 #4
-b10 !
-b10 )
+b11 !
+b11 )
 b10 "
 b10 %
 #5

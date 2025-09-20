@@ -13,7 +13,7 @@ module alu (
             3'b001: //SUB
                 y = a - b;
             3'b101: //SLT
-                y = (a < b) ? 32'b1 : 32'b0;
+                y = ($signed(a) < $signed(b)) ? 32'b1 : 32'b0;
             3'b011: //OR
                 y = a | b;
             3'b010: //AND
