@@ -8,6 +8,7 @@ module datapath(
     input logic [1:0] ResultSrc,
     input logic PCSrc,
     input logic [31:0] ReadData,
+    input logic [2:0] ALUControl,
     output [31:0] PC,
     output Zero,
     output [31:0] ALUResult,
@@ -25,5 +26,7 @@ module datapath(
     mux2_1 mux_SrcB (.a(WriteData), .b(ImmExt), .s(ALUSrc), .y(SrcB));
     mux3_1 mux_Result (.a(ALUResult), .b(ReadData), .c(PCPlus4), .s(ResultSrc), .y(Result));
     mux2_1 mux_PCNext (.a(PCPlus4), .b(PCTarget), .s(PCSrc));
+
+    alu alu (.a(SrcA), .b(SrcB), .ALUControl(ALUControl), .y(ALUResult));
 
 endmodule
