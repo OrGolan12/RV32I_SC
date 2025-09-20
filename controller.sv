@@ -8,7 +8,7 @@ module controller(
     output logic ALUSrc,
     output logic MemWrite,
     output logic [1:0] ResultSrc,
-    output logic PCsrc
+    output logic PCSrc
 );
     logic Branch;
     logic Jump;
@@ -21,6 +21,6 @@ module controller(
     alu_decoder ad (.ALUOp(ALUOp), .funct3(funct3), .op5(opcode[5]), .funct7_5(funct7_5),
      .ALUControl(ALUControl));
 
-    assign PCsrc = ((Branch & Zero) | Jump);
+    assign PCSrc = ((Branch & Zero) | Jump);
 
 endmodule
