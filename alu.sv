@@ -8,15 +8,15 @@ module alu (
 
     always_comb begin
         case(ALUControl)
-            000: //ADD
+            3'b000: //ADD
                 y = a + b;
-            001: //SUB
+            3'b001: //SUB
                 y = a - b;
-            101: //SLT
-                y = ($signed(a) < $signed(b)) ? 32'b1 : 32'b0;
-            011: //OR
+            3'b101: //SLT
+                y = (a < b) ? 32'b1 : 32'b0;
+            3'b011: //OR
                 y = a | b;
-            010: //AND
+            3'b010: //AND
                 y = a & b;
             default:
                 y = 32'bx;
