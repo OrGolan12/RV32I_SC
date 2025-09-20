@@ -8,7 +8,8 @@ module controller(
     output logic ALUSrc,
     output logic MemWrite,
     output logic [1:0] ResultSrc,
-    output logic PCSrc
+    output logic PCSrc,
+    output [2:0] ALUControl
 );
     logic Branch;
     logic Jump;
