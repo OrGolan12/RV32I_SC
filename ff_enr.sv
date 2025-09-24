@@ -3,8 +3,8 @@ module ff_enr #(parameter WIDTH = 32)
     input clk,
     input rst_n,
     input en,
-    input [WIDTH-1:0] d,
-    output [WIDTH-1:0] q
+    input logic [WIDTH-1:0] d,
+    output logic [WIDTH-1:0] q
 );
 
     logic [WIDTH-1:0] q_reg;

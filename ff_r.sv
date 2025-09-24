@@ -11,7 +11,7 @@ module ff_r #(parameter WIDTH = 32)
         if(!rst_n)
             q_reg <= '0;
         else
-            q_req <= d;
+            q_reg <= d;
     end
 
     assign q = q_reg;

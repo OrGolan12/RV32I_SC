@@ -1,12 +1,13 @@
 module alu_decoder(
-    input [1:0] ALUOp,
-    input [2:0] funct3,
-    input op5,
-    input funct7_5,
-    output [2:0] ALUControl
+    input logic [1:0] ALUOp,
+    input logic [2:0] funct3,
+    input logic op5,
+    input logic funct7_5,
+    output logic [2:0] ALUControl
 );
 
-    logic op5func7_5_concat = {op5, funct7_5};
+    logic [1:0] op5func7_5_concat;
+    assign op5func7_5_concat = {op5, funct7_5};
 
     always_comb begin
         if(ALUOp == 2'b00)
@@ -18,9 +19,9 @@ module alu_decoder(
         else begin
             case(funct3)
                 3'b000: begin
-                            if(op5func7_5_concat == 00 || op5func7_5_concat == 01 || op5func7_5_concat == 10)
+                            if(op5func7_5_concat == 2'b00 || op5func7_5_concat == 2'b01 || op5func7_5_concat == 2'b10)
                                 ALUControl = 3'b000;
-                            else if (op5func7_5_concat == 11)
+                            else if (op5func7_5_concat == 2'b11)
                                 ALUControl = 3'b001;
                 end
                 3'b010:

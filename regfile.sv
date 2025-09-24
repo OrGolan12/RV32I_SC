@@ -1,10 +1,10 @@
 module regfile(
     input clk,
-    input RegWrite,
-    input [4:0] a1, a2, a3,
-    input [31:0] wd3,
-    output [31:0] rd1,
-    output [31:0] rd2
+    input logic RegWrite,
+    input logic [4:0] a1, a2, a3,
+    input logic [31:0] wd3,
+    output logic [31:0] rd1,
+    output logic [31:0] rd2
 );
 
     logic [31:0] rf [31:0];
