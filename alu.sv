@@ -18,6 +18,8 @@ module alu (
                 y = a | b;
             3'b010: //AND
                 y = a & b;
+            3'b100:
+                y = a ^ b;
             default:
                 y = 32'bx;
         endcase

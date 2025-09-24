@@ -30,6 +30,8 @@ module alu_decoder(
                             ALUControl = 3'b011;
                 3'b111:
                             ALUControl = 3'b010;
+                3'b100:
+                            ALUControl = 3'b100;
                 default:
                             ALUControl = 3'bxxx;
             endcase
