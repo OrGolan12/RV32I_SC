@@ -9,11 +9,13 @@ module controller(
     output logic MemWrite,
     output logic [1:0] ResultSrc,
     output logic PCSrc,
-    output logic [2:0] ALUControl
+    output logic [3:0] ALUControl
 );
     logic Branch;
     logic Jump;
     logic [1:0] ALUOp;
+
+    logic Branch_Taken;
 
     main_decoder md (.opcode(opcode), .RegWrite(RegWrite), .ImmSrc(ImmSrc),
     .ALUSrc(ALUSrc), .MemWrite(MemWrite), .ResultSrc(ResultSrc), .ALUOp(ALUOp), .Jump(Jump), .Branch(Branch));
@@ -21,6 +23,7 @@ module controller(
     alu_decoder ad (.ALUOp(ALUOp), .funct3(funct3), .op5(opcode[5]), .funct7_5(funct7_5),
      .ALUControl(ALUControl));
 
-    assign PCSrc = ((Branch & Zero) | Jump);
+    assign Branch_Taken = Zero ^ funct3[0];
+    assign PCSrc = ((Branch_Taken & Branch) | Jump);
 
 endmodule

@@ -8,7 +8,7 @@ module datapath(
     input logic [1:0] ResultSrc,
     input logic PCSrc,
     input logic [31:0] ReadData,
-    input logic [2:0] ALUControl,
+    input logic [3:0] ALUControl,
     output logic [31:0] PC,
     output logic Zero,
     output logic [31:0] ALUResult,

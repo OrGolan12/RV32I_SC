@@ -27,6 +27,7 @@ initial $monitor("[%0t] a1=0x%08x, rs1=0x%08x, a2=0x%08x, rs2=0x%08x, a3=0x%08x,
     initial begin
     #10000;   // run for 10,000 time units
     $display("Simulation finished by timeout");
+    $writememh("rf_dump.hex", dut.rvsingle.dp.rf.rf);
     $finish;
     end
 
@@ -51,6 +52,5 @@ initial $monitor("[%0t] a1=0x%08x, rs1=0x%08x, a2=0x%08x, rs2=0x%08x, a3=0x%08x,
         $dumpvars(0, rv32i_sc_tb.dut.rvsingle.dp.rf);
     end
     // ------------------
-
 
 endmodule
