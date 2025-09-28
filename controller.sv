@@ -4,7 +4,7 @@ module controller(
     input logic funct7_5,
     input logic Zero,
     output logic RegWrite,
-    output logic [1:0] ImmSrc,
+    output logic [2:0] ImmSrc,
     output logic ALUSrc,
     output logic MemWrite,
     output logic [1:0] ResultSrc,

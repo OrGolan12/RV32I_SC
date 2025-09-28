@@ -3,7 +3,7 @@ module datapath(
     input rst_n,
     input logic [31:0] instr,
     input logic RegWrite,
-    input logic [1:0] ImmSrc,
+    input logic [2:0] ImmSrc,
     input logic ALUSrc,
     input logic [1:0] ResultSrc,
     input logic PCSrc,
@@ -26,7 +26,7 @@ module datapath(
 
     ff_r PC_Next_Reg (.clk(clk), .rst_n(rst_n), .d(PCNext), .q(PC));
     mux2_1 mux_SrcB (.a(WriteData), .b(immext), .s(ALUSrc), .y(SrcB));
-    mux3_1 mux_Result (.a(ALUResult), .b(ReadData), .c(PCPlus4), .s(ResultSrc), .y(Result));
+    mux4_1 mux_Result (.a(ALUResult), .b(ReadData), .c(PCPlus4), .d(immext), .s(ResultSrc), .y(Result));
     mux2_1 mux_PCNext (.a(PCPlus4), .b(PCTarget), .s(PCSrc), .y(PCNext));
 
     alu alu (.a(SrcA), .b(SrcB), .ALUControl(ALUControl), .y(ALUResult), .Zero(Zero));

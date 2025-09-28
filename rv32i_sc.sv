@@ -8,7 +8,8 @@
 );
 
     logic ALUSrc, RegWrite, Jump, Zero;
-    logic [1:0] ResultSrc, ImmSrc;
+    logic [1:0] ResultSrc;
+    logic [2:0] ImmSrc;
     logic [3:0] ALUControl;
     logic PCSrc;
 
