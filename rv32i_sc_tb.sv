@@ -36,11 +36,11 @@ initial $monitor("[%0t] a1=0x%08x, rs1=0x%08x, a2=0x%08x, rs2=0x%08x, a3=0x%08x,
         if (MemWrite) begin
             if ((DataAdr === 100) && (WriteData === 25)) begin
                 $display("Simulation succeeded");
-                $stop;
+                //$stop;
             end
             else if (DataAdr !== 96) begin
                 $display("Simulation failed");
-                $stop;
+                //$stop;
             end
         end
     end

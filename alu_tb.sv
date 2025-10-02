@@ -1,7 +1,7 @@
 module alu_tb;
     logic [31:0] a;
     logic [31:0] b;
-    logic [2:0] ALUControl;
+    logic [3:0] ALUControl;
     logic [31:0] y;
 
     alu dut(.a(a), .b(b), .ALUControl(ALUControl), .y(y));

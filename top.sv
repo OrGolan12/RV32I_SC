@@ -11,3 +11,4 @@ module top(
 
     dmem dmem(.clk(clk), .we(MemWrite) , .a(DataAdr), .wd(WriteData), .rd(ReadData));
  endmodule
+
