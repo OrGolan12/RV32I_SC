@@ -13,7 +13,7 @@ $var wire 32 " WriteData [31:0] $end
 $var wire 32 # PC [31:0] $end
 $var wire 32 $ ALUResult [31:0] $end
 $var reg 3 % ALUControl [2:0] $end
-$var reg 1 & ALUSrc $end
+$var reg 1 & ALUSrcB $end
 $var reg 2 ' ImmSrc [1:0] $end
 $var reg 1 ( PCSrc $end
 $var reg 32 ) ReadData [31:0] $end
@@ -26,7 +26,7 @@ $scope function enc_addi $end
 $upscope $end
 $scope module dut $end
 $var wire 3 / ALUControl [2:0] $end
-$var wire 1 & ALUSrc $end
+$var wire 1 & ALUSrcB $end
 $var wire 2 0 ImmSrc [1:0] $end
 $var wire 1 ( PCSrc $end
 $var wire 32 1 ReadData [31:0] $end

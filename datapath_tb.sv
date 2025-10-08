@@ -4,7 +4,7 @@ module datapath_tb;
   logic [31:0] instr;
   logic RegWrite;
   logic [1:0] ImmSrc;
-  logic ALUSrc;
+  logic ALUSrcB;
   logic [1:0] ResultSrc;
   logic PCSrc;
   logic [31:0] ReadData;
@@ -21,7 +21,7 @@ datapath dut (
   .instr      (instr),
   .RegWrite   (RegWrite),
   .ImmSrc     (ImmSrc),
-  .ALUSrc     (ALUSrc),
+  .ALUSrcB     (ALUSrcB),
   .ResultSrc  (ResultSrc),
   .PCSrc      (PCSrc),
   .ReadData   (ReadData),
@@ -39,7 +39,7 @@ always #5 clk = ~clk;
 function automatic [31:0] enc_addi(input int rd, input int rs1, input int imm12);
   // RISC-V ADDI: imm[11:0] | rs1 | funct3=000 | rd | opcode=0010011
   logic signed [11:0] imm_s = imm12;    // keep only 12 LSBs; treat as signed
-  {RegWrite, ImmSrc, ALUSrc, ResultSrc, ALUControl} = {1'b1, 2'b00, 1'b1, 2'b00, 3'b000};
+  {RegWrite, ImmSrc, ALUSrcB, ResultSrc, ALUControl} = {1'b1, 2'b00, 1'b1, 2'b00, 3'b000};
   return {imm_s, rs1[4:0], 3'b000, rd[4:0], 7'b0010011};
 endfunction
 

@@ -152,7 +152,7 @@ S_000002a54a1d4580 .scope module, "datapath_tb" "datapath_tb" 5 1;
  .timescale 0 0;
 v000002a54a234b40_0 .var "ALUControl", 2 0;
 v000002a54a2355e0_0 .net "ALUResult", 31 0, v000002a54a231620_0;  1 drivers
-v000002a54a2343c0_0 .var "ALUSrc", 0 0;
+v000002a54a2343c0_0 .var "ALUSrcB", 0 0;
 v000002a54a2348c0_0 .var "ImmSrc", 1 0;
 v000002a54a2357c0_0 .net "PC", 31 0, v000002a54a230c90_0;  1 drivers
 v000002a54a234f00_0 .var "PCSrc", 0 0;
@@ -171,7 +171,7 @@ S_000002a54a15a3a0 .scope module, "dut" "datapath" 5 18, 6 1 0, S_000002a54a1d45
     .port_info 2 /INPUT 32 "instr";
     .port_info 3 /INPUT 1 "RegWrite";
     .port_info 4 /INPUT 2 "ImmSrc";
-    .port_info 5 /INPUT 1 "ALUSrc";
+    .port_info 5 /INPUT 1 "ALUSrcB";
     .port_info 6 /INPUT 2 "ResultSrc";
     .port_info 7 /INPUT 1 "PCSrc";
     .port_info 8 /INPUT 32 "ReadData";
@@ -182,7 +182,7 @@ S_000002a54a15a3a0 .scope module, "dut" "datapath" 5 18, 6 1 0, S_000002a54a1d45
     .port_info 13 /OUTPUT 32 "WriteData";
 v000002a54a234140_0 .net "ALUControl", 2 0, v000002a54a234b40_0;  1 drivers
 v000002a54a234fa0_0 .net "ALUResult", 31 0, v000002a54a231620_0;  alias, 1 drivers
-v000002a54a235b80_0 .net "ALUSrc", 0 0, v000002a54a2343c0_0;  1 drivers
+v000002a54a235b80_0 .net "ALUSrcB", 0 0, v000002a54a2343c0_0;  1 drivers
 v000002a54a235180_0 .net "ImmSrc", 1 0, v000002a54a2348c0_0;  1 drivers
 v000002a54a235360_0 .net "PC", 31 0, v000002a54a230c90_0;  alias, 1 drivers
 v000002a54a235d60_0 .var "PCNext", 31 0;
@@ -644,7 +644,7 @@ S_000002a54a233860 .scope module, "rvsingle" "rv32i_sc" 16 7, 19 1 0, S_000002a5
     .port_info 7 /INPUT 32 "ReadData";
 v000002a54a2419e0_0 .net "ALUControl", 2 0, v000002a54a2374b0_0;  1 drivers
 v000002a54a242480_0 .net "ALUResult", 31 0, v000002a54a240b40_0;  alias, 1 drivers
-v000002a54a243740_0 .net "ALUSrc", 0 0, v000002a54a23d230_0;  1 drivers
+v000002a54a243740_0 .net "ALUSrcB", 0 0, v000002a54a23d230_0;  1 drivers
 v000002a54a242980_0 .net "ImmSrc", 1 0, v000002a54a23e4f0_0;  1 drivers
 v000002a54a243560_0 .net "MemWrite", 0 0, v000002a54a23d7d0_0;  alias, 1 drivers
 v000002a54a242340_0 .net "PC", 31 0, v000002a54a240e60_0;  alias, 1 drivers
@@ -668,7 +668,7 @@ S_000002a54a233540 .scope module, "c" "controller" 19 15, 20 1 0, S_000002a54a23
     .port_info 3 /INPUT 1 "zero";
     .port_info 4 /OUTPUT 1 "RegWrite";
     .port_info 5 /OUTPUT 2 "ImmSrc";
-    .port_info 6 /OUTPUT 1 "ALUSrc";
+    .port_info 6 /OUTPUT 1 "ALUSrcB";
     .port_info 7 /OUTPUT 1 "MemWrite";
     .port_info 8 /OUTPUT 2 "ResultSrc";
     .port_info 9 /OUTPUT 1 "PCSrc";
@@ -677,7 +677,7 @@ L_000002a54a1acf40 .functor AND 1, v000002a54a23d410_0, v000002a54a2414e0_0, C4<
 L_000002a54a1ad560 .functor OR 1, L_000002a54a1acf40, v000002a54a23d4b0_0, C4<0>, C4<0>;
 v000002a54a23d0f0_0 .net "ALUControl", 2 0, v000002a54a2374b0_0;  alias, 1 drivers
 v000002a54a23d2d0_0 .net "ALUOp", 1 0, v000002a54a236f10_0;  1 drivers
-v000002a54a23e590_0 .net "ALUSrc", 0 0, v000002a54a23d230_0;  alias, 1 drivers
+v000002a54a23e590_0 .net "ALUSrcB", 0 0, v000002a54a23d230_0;  alias, 1 drivers
 v000002a54a23d410_0 .var "Branch", 0 0;
 v000002a54a23ea90_0 .net "ImmSrc", 1 0, v000002a54a23e4f0_0;  alias, 1 drivers
 v000002a54a23deb0_0 .net "Jump", 0 0, v000002a54a23d4b0_0;  1 drivers
@@ -710,14 +710,14 @@ S_000002a54a23a070 .scope module, "md" "main_decoder" 20 19, 22 1 0, S_000002a54
     .port_info 0 /INPUT 7 "opcode";
     .port_info 1 /OUTPUT 1 "RegWrite";
     .port_info 2 /OUTPUT 2 "ImmSrc";
-    .port_info 3 /OUTPUT 1 "ALUSrc";
+    .port_info 3 /OUTPUT 1 "ALUSrcB";
     .port_info 4 /OUTPUT 1 "MemWrite";
     .port_info 5 /OUTPUT 2 "ResultSrc";
     .port_info 6 /OUTPUT 1 "Branch";
     .port_info 7 /OUTPUT 2 "ALUOp";
     .port_info 8 /OUTPUT 1 "Jump";
 v000002a54a236f10_0 .var "ALUOp", 1 0;
-v000002a54a23d230_0 .var "ALUSrc", 0 0;
+v000002a54a23d230_0 .var "ALUSrcB", 0 0;
 v000002a54a23d190_0 .var "Branch", 0 0;
 v000002a54a23e4f0_0 .var "ImmSrc", 1 0;
 v000002a54a23d4b0_0 .var "Jump", 0 0;
@@ -733,7 +733,7 @@ S_000002a54a239d50 .scope module, "dp" "datapath" 19 18, 6 1 0, S_000002a54a2338
     .port_info 2 /INPUT 32 "instr";
     .port_info 3 /INPUT 1 "RegWrite";
     .port_info 4 /INPUT 2 "ImmSrc";
-    .port_info 5 /INPUT 1 "ALUSrc";
+    .port_info 5 /INPUT 1 "ALUSrcB";
     .port_info 6 /INPUT 2 "ResultSrc";
     .port_info 7 /INPUT 1 "PCSrc";
     .port_info 8 /INPUT 32 "ReadData";
@@ -744,7 +744,7 @@ S_000002a54a239d50 .scope module, "dp" "datapath" 19 18, 6 1 0, S_000002a54a2338
     .port_info 13 /OUTPUT 32 "WriteData";
 v000002a54a2437e0_0 .net "ALUControl", 2 0, v000002a54a2374b0_0;  alias, 1 drivers
 v000002a54a241260_0 .net "ALUResult", 31 0, v000002a54a240b40_0;  alias, 1 drivers
-v000002a54a241800_0 .net "ALUSrc", 0 0, v000002a54a23d230_0;  alias, 1 drivers
+v000002a54a241800_0 .net "ALUSrcB", 0 0, v000002a54a23d230_0;  alias, 1 drivers
 v000002a54a242de0_0 .net "ImmSrc", 1 0, v000002a54a23e4f0_0;  alias, 1 drivers
 v000002a54a242c00_0 .net "PC", 31 0, v000002a54a240e60_0;  alias, 1 drivers
 v000002a54a242020_0 .var "PCNext", 31 0;

@@ -7,27 +7,32 @@ module controller(
     input logic NEGU,
     output logic RegWrite,
     output logic [2:0] ImmSrc,
-    output logic ALUSrc,
+    output logic ALUSrcB,
+    output logic ALUSrcA,
     output logic MemWrite,
     output logic [1:0] ResultSrc,
-    output logic PCSrc,
+    output logic [1:0] PCSrc,
     output logic [3:0] ALUControl,
     output logic [2:0] LoadExtSrc
 );
     logic Branch;
     logic Jump;
+    logic Jalr;
     logic [1:0] ALUOp;
     logic Branch_Taken;
 
-    main_decoder md (.opcode(opcode), .RegWrite(RegWrite), .ImmSrc(ImmSrc),
-    .ALUSrc(ALUSrc), .MemWrite(MemWrite), .ResultSrc(ResultSrc), .ALUOp(ALUOp), .Jump(Jump), .Branch(Branch));
+    main_decoder md (.opcode(opcode), .RegWrite(RegWrite), .ImmSrc(ImmSrc), .ALUSrcA(ALUSrcA), .Jalr(Jalr),
+    .ALUSrcB(ALUSrcB), .MemWrite(MemWrite), .ResultSrc(ResultSrc), .ALUOp(ALUOp), .Jump(Jump), .Branch(Branch));
 
     alu_decoder ad (.ALUOp(ALUOp), .funct3(funct3), .op5(opcode[5]), .funct7_5(funct7_5),
      .ALUControl(ALUControl));
 
     branch_logic bl (.funct3(funct3), .Zero(Zero), .NEG(NEG), .NEGU(NEGU), .Branch_Taken(Branch_Taken));
 
-    assign PCSrc = ((Branch_Taken & Branch) | Jump);
+    assign PCSrc = (Branch & Branch_Taken) ? 2'b01 :
+                    Jump                    ? 2'b01 :
+                    Jalr                   ? 2'b10 : 2'b00;
+
     assign LoadExtSrc = funct3;
 
 endmodule

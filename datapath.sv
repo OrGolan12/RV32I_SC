@@ -4,9 +4,10 @@ module datapath(
     input logic [31:0] instr,
     input logic RegWrite,
     input logic [2:0] ImmSrc,
-    input logic ALUSrc,
+    input logic ALUSrcB,
+    input logic ALUSrcA,
     input logic [1:0] ResultSrc,
-    input logic PCSrc,
+    input logic [1:0] PCSrc,
     input logic [31:0] ReadData,
     input logic [3:0] ALUControl,
     input logic [2:0] LoadExtSrc,
@@ -18,18 +19,21 @@ module datapath(
     output logic [31:0] WriteData
 );
 
-    logic [31:0] SrcA, SrcB, immext, PCTarget, PCPlus4, PCNext, Result, DataExt;
+    logic [31:0] SrcA, SrcB, immext, PCTarget, PCPlus4, PCNext, Result, DataExt, RD1;
+    wire [31:0] masked_pc = {ALUResult[31:1], 1'b0};
+
     adder mux_PCPlus4 (.a(PC), .b(32'b100), .y(PCPlus4));
     adder mux_PCTarget (.a(PC), .b(immext), .y(PCTarget));
 
     imm_extend ImmExt (.in(instr[31:7]), .ImmSrc(ImmSrc), .ImmExt(immext));
 
-    regfile rf (.clk(clk), .RegWrite(RegWrite), .a1(instr[19:15]), .a2(instr[24:20]), .a3(instr[11:7]), .wd3(Result), .rd1(SrcA), .rd2(WriteData));
+    regfile rf (.clk(clk), .RegWrite(RegWrite), .a1(instr[19:15]), .a2(instr[24:20]), .a3(instr[11:7]), .wd3(Result), .rd1(RD1), .rd2(WriteData));
 
     ff_r PC_Next_Reg (.clk(clk), .rst_n(rst_n), .d(PCNext), .q(PC));
-    mux2_1 mux_SrcB (.a(WriteData), .b(immext), .s(ALUSrc), .y(SrcB));
+    mux2_1 mux_SrcB (.a(WriteData), .b(immext), .s(ALUSrcB), .y(SrcB));
+    mux2_1 mux_SrcA (.a(RD1), .b(PC), .s(ALUSrcA), .y(SrcA));
     mux4_1 mux_Result (.a(ALUResult), .b(DataExt), .c(PCPlus4), .d(immext), .s(ResultSrc), .y(Result));
-    mux2_1 mux_PCNext (.a(PCPlus4), .b(PCTarget), .s(PCSrc), .y(PCNext));
+    mux3_1 mux_PCNext (.a(PCPlus4), .b(PCTarget), .c(masked_pc), .s(PCSrc), .y(PCNext));
 
     alu alu (.a(SrcA), .b(SrcB), .ALUControl(ALUControl), .y(ALUResult), .Zero(Zero), .NEG(NEG), .NEGU(NEGU));
     load_extender le (.ReadData(ReadData), .offset(ALUResult[1:0]), .LoadExtSrc(LoadExtSrc), .DataExt(DataExt));

@@ -4,6 +4,6 @@ module imem(
 );
     logic [31:0] mem [63:0];
     initial
-       $readmemh("branch_test.txt",mem);
+       $readmemh("srai_test.txt",mem);
     assign rd = mem[a[31:2]]; // word aligned
  endmodule
