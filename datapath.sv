@@ -10,7 +10,7 @@ module datapath(
     input logic [1:0] PCSrc,
     input logic [31:0] ReadData,
     input logic [3:0] ALUControl,
-    input logic [2:0] LoadExtSrc,
+    input logic [2:0] MemSize,
     output logic [31:0] PC,
     output logic Zero,
     output logic NEGU,
@@ -36,6 +36,6 @@ module datapath(
     mux3_1 mux_PCNext (.a(PCPlus4), .b(PCTarget), .c(masked_pc), .s(PCSrc), .y(PCNext));
 
     alu alu (.a(SrcA), .b(SrcB), .ALUControl(ALUControl), .y(ALUResult), .Zero(Zero), .NEG(NEG), .NEGU(NEGU));
-    load_extender le (.ReadData(ReadData), .offset(ALUResult[1:0]), .LoadExtSrc(LoadExtSrc), .DataExt(DataExt));
+    load_extender le (.ReadData(ReadData), .offset(ALUResult[1:0]), .MemSize(MemSize), .DataExt(DataExt));
 
 endmodule

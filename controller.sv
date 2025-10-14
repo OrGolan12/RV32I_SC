@@ -13,7 +13,7 @@ module controller(
     output logic [1:0] ResultSrc,
     output logic [1:0] PCSrc,
     output logic [3:0] ALUControl,
-    output logic [2:0] LoadExtSrc
+    output logic [2:0] MemSize
 );
     logic Branch;
     logic Jump;
@@ -33,6 +33,6 @@ module controller(
                     Jump                    ? 2'b01 :
                     Jalr                   ? 2'b10 : 2'b00;
 
-    assign LoadExtSrc = funct3;
+    assign MemSize = funct3;
 
 endmodule

@@ -1,7 +1,7 @@
 module load_extender (
     input  logic [31:0] ReadData,
     input  logic [1:0]  offset,
-    input  logic [2:0]  LoadExtSrc,
+    input  logic [2:0]  MemSize,
     output logic [31:0] DataExt
 );
     wire [7:0]  byte_sel = ReadData[8*offset +: 8];
@@ -14,10 +14,10 @@ module load_extender (
     wire [31:0] LHU_out = {16'b0, half_sel};
 
     assign DataExt =
-        (LoadExtSrc == 3'b000) ? LB_out  :
-        (LoadExtSrc == 3'b001) ? LH_out  :
-        (LoadExtSrc == 3'b010) ? LW_out  :
-        (LoadExtSrc == 3'b100) ? LBU_out :
-        (LoadExtSrc == 3'b101) ? LHU_out :
+        (MemSize == 3'b000) ? LB_out  :
+        (MemSize == 3'b001) ? LH_out  :
+        (MemSize == 3'b010) ? LW_out  :
+        (MemSize == 3'b100) ? LBU_out :
+        (MemSize == 3'b101) ? LHU_out :
                                  32'hDEAD_BEEF; // illegal funct3
 endmodule

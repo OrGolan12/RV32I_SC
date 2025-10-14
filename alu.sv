@@ -33,30 +33,21 @@ module alu (
     assign shamt = b[4:0];
 
     always_comb begin
-        case(ALUControl)
-            4'b0000: //ADD
-                y = sum;
-            4'b0001: //SUB
-                y = sum;
-            4'b0101: //SLT
-                y = ($signed(a) < $signed(b)) ? 32'b1 : 32'b0;
-            4'b0011: //OR
-                y = a | b;
-            4'b0010: //AND
-                y = a & b;
-            4'b0100:
-                y = a ^ b;
-            4'b0110:
-                y = a << shamt;
-            4'b0111:
-                y = $unsigned(a) >> shamt;
-            4'b1000:
-                y = $signed(a) >>> shamt;
-            default:
-                y = 32'bx;
+        case (ALUControl)
+            4'b0000: y = sum;                                   // ADD
+            4'b0001: y = sum;                                   // SUB
+            4'b0101: y = ($signed(a) < $signed(b)) ? 32'b1 : 32'b0; // SLT
+            4'b1001: y = {31'b0, NEGU};                         // SLTU  << add this
+            4'b0011: y = a | b;                                 // OR
+            4'b0010: y = a & b;                                 // AND
+            4'b0100: y = a ^ b;                                 // XOR
+            4'b0110: y = a << shamt;                            // SLL
+            4'b0111: y = $unsigned(a) >> shamt;                 // SRL
+            4'b1000: y = $signed(a) >>> shamt;                  // SRA
+            default: y = 32'bx;
         endcase
     end
 
-    assign Zero = (sum == 32'b0);
+    assign Zero = (y == 32'b0);
 
 endmodule

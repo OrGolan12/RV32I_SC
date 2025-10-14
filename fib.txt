@@ -1,0 +1,20 @@
+    # Minimal RV32I Fibonacci: F(10)
+    # Stores result (F(10)=55) to memory[0x00000000]
+
+    addi x5, x0, 0          # t0 = 0
+    addi x6, x0, 1          # t1 = 1
+    addi x7, x0, 10         # n = 10
+
+    # Use x9 as a pointer to memory[0x00000000]
+    addi x9, x0, 0          # x9 = base address
+
+loop:
+    add  x8, x5, x6         # x8 = t0 + t1
+    addi x7, x7, -1         # n--
+    beq  x7, x0, done       # if n == 0 -> done
+    add  x5, x6, x0         # t0 = t1
+    add  x6, x8, x0         # t1 = sum
+    jal  x0, loop           # repeat
+
+done:
+    sw   x6, 0(x9)          # store result (F(10)) into memory[0x00000000]
