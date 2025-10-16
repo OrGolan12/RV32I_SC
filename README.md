@@ -73,6 +73,9 @@ Key features: - Complete **RV32I base instruction set** support.\
 -   **`load_extender.sv`** --- Extends byte/halfword loads with correct
     sign or zero extension.
 
+<img width="1760" height="753" alt="RV32I_SC" src="https://github.com/user-attachments/assets/61bf6164-7f5f-4f3c-9e69-a7535b6f77fa" />
+
+
 ### **Memory & I/O**
 
 -   **`imem.sv`** --- Instruction memory (read-only, initialized from
