@@ -1,23 +1,22 @@
 # RV32I_SC
 
-A single-cycle **RISC-V RV32I** core implemented in **SystemVerilog**,
+A single-cycle RISC-V RV32I core implemented in SystemVerilog,
 based on the DDCA implementation by Harris and extended to support all
-missing instructions --- achieving **100% instruction coverage**.\
-This design is intended for clarity, experimentation, and further
+missing instructions, achieving 100% instruction coverage.\
+This design is intended for experimentation and further
 development toward pipelined or cached variants.
 
 ------------------------------------------------------------------------
 
 ## Overview
 
-The core is written entirely in **SystemVerilog** and follows a **clean,
+The core is written entirely in SystemVerilog and follows a **clean,
 single-cycle** architecture for simplicity and readability.\
 Instruction fetch, decode, execute, memory, and writeback occur within
 one clock cycle.
 
 Key features: - Complete **RV32I base instruction set** support.\
-- Built upon the Harris DDCA core with additional modules and
-instruction coverage fixes.\
+- Built upon the Harris DDCA core with additional modules.\
 - Modular structure with clear separation between control and datapath.\
 - Compatible with open-source simulators such as **Icarus Verilog**,
 **Verilator**, and **GTKWave**.
@@ -87,45 +86,6 @@ instruction coverage fixes.\
     throughout the datapath.\
 -   **`ff_r.sv`, `ff_enr.sv`** --- Flip-flops with reset and optional
     enable.
-
-------------------------------------------------------------------------
-
-## Getting Started
-
-### Prerequisites
-
-You'll need: - **Icarus Verilog** or **Verilator** for simulation\
-- **GTKWave** for waveform viewing\
-- (Optional) **RARS** or **Spike** for assembling and running RISC-V
-programs
-
-### Build & Run
-
-Using Makefile (if available):
-
-``` bash
-make run
-```
-
-Or manually:
-
-``` bash
-iverilog -o simv src/*.sv tb/*.sv
-vvp simv
-gtkwave dump.vcd
-```
-
-------------------------------------------------------------------------
-
-## Example
-
-To run a sample assembly program:
-
-``` bash
-cd asm
-make hello
-make run
-```
 
 ------------------------------------------------------------------------
 
