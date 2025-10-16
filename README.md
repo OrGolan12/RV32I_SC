@@ -2,7 +2,7 @@
 
 A single-cycle RISC-V RV32I core implemented in SystemVerilog,
 based on the DDCA implementation by Harris and extended to support all
-missing instructions, achieving 100% instruction coverage.\
+missing instructions, achieving 100% instruction coverage
 This design is intended for experimentation and further
 development toward pipelined or cached variants.
 
@@ -11,13 +11,13 @@ development toward pipelined or cached variants.
 ## Overview
 
 The core is written entirely in SystemVerilog and follows a **clean,
-single-cycle** architecture for simplicity and readability.\
+single-cycle** architecture for simplicity and readability
 Instruction fetch, decode, execute, memory, and writeback occur within
 one clock cycle.
 
-Key features: - Complete **RV32I base instruction set** support.\
-- Built upon the Harris DDCA core with additional modules.\
-- Modular structure with clear separation between control and datapath.\
+Key features: - Complete **RV32I base instruction set** support
+- Built upon the Harris DDCA core with additional modules
+- Modular structure with clear separation between control and datapath
 - Compatible with open-source simulators such as **Icarus Verilog**,
 **Verilator**, and **GTKWave**.
 
@@ -61,15 +61,15 @@ Key features: - Complete **RV32I base instruction set** support.\
 ### **Datapath**
 
 -   **`datapath.sv`** --- Connects the ALU, register file, immediate
-    logic, and multiplexers.\
+    logic, and multiplexers
 -   **`regfile.sv`** --- 32×32 register file with two read ports and one
-    write port (x0 = 0).\
+    write port (x0 = 0)
 -   **`alu.sv`** --- Implements arithmetic, logical, and shift
-    operations.\
+    operations
 -   **`adder.sv`** --- Simple adder for PC increment and branch
-    targets.\
+    targets
 -   **`imm_extend.sv`** --- Extracts and sign-extends immediates for all
-    instruction types.\
+    instruction types
 -   **`load_extender.sv`** --- Extends byte/halfword loads with correct
     sign or zero extension.
 
@@ -79,14 +79,14 @@ Key features: - Complete **RV32I base instruction set** support.\
 ### **Memory & I/O**
 
 -   **`imem.sv`** --- Instruction memory (read-only, initialized from
-    file).\
+    file)
 -   **`dmem.sv`** --- Data memory (read/write) with byte and halfword
     granularity.
 
 ### **Utility / Infrastructure**
 
 -   **`mux2_1.sv`, `mux3_1.sv`, `mux4_1.sv`** --- Multiplexers used
-    throughout the datapath.\
+    throughout the datapath
 -   **`ff_r.sv`, `ff_enr.sv`** --- Flip-flops with reset and optional
     enable.
 
