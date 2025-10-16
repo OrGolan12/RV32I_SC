@@ -1,24 +1,26 @@
 # RV32I_SC
 
-A simple, single-cycle implementation of the RISC-V RV32I instruction
-set architecture.\
-This project was built for learning, experimentation, and extending
-toward more advanced CPU designs.
+A single-cycle **RISC-V RV32I** core implemented in **SystemVerilog**,
+based on the DDCA implementation by Harris and extended to support all
+missing instructions --- achieving **100% instruction coverage**.\
+This design is intended for clarity, experimentation, and further
+development toward pipelined or cached variants.
 
 ------------------------------------------------------------------------
 
 ## Overview
 
-This core implements the base RV32I instruction set, focusing on clarity
-and correctness rather than performance.\
-It's written in Verilog and can be simulated using standard open-source
-tools.
+The core is written entirely in **SystemVerilog** and follows a **clean,
+single-cycle** architecture for simplicity and readability.\
+Instruction fetch, decode, execute, memory, and writeback occur within
+one clock cycle.
 
-The design follows a straightforward single-cycle architecture: - Fetch
-→ Decode → Execute → Memory → Write-back\
-- Supports all basic arithmetic, logical, and control instructions.\
-- Memory interface designed for easy integration with testbenches and
-simple memory models.
+Key features: - Complete **RV32I base instruction set** support.\
+- Built upon the Harris DDCA core with additional modules and
+instruction coverage fixes.\
+- Modular structure with clear separation between control and datapath.\
+- Compatible with open-source simulators such as **Icarus Verilog**,
+**Verilator**, and **GTKWave**.
 
 ------------------------------------------------------------------------
 
@@ -31,9 +33,60 @@ simple memory models.
     ├── dumps/      # Simulation output files
     ├── misc/       # Utility scripts or helper files
     ├── sim/        # Simulation environment and scripts
-    ├── src/        # Main Verilog source files
+    ├── src/        # Main SystemVerilog source files
     ├── tb/         # Testbenches
     └── tests/      # Test cases and programs
+
+------------------------------------------------------------------------
+
+## Module Overview
+
+### **Top-Level**
+
+-   **`top.sv`** --- SoC wrapper; instantiates CPU (`rv32i_sc`),
+    instruction memory, and data memory.\
+-   **`rv32i_sc.sv`** --- Main CPU core integrating the controller and
+    datapath.
+
+### **Control Path**
+
+-   **`controller.sv`** --- Generates control signals and coordinates
+    the instruction flow.\
+-   **`main_decoder.sv`** --- Decodes opcodes into high-level control
+    signals (e.g., RegWrite, ALUSrc, MemToReg).\
+-   **`alu_decoder.sv`** --- Decodes funct3/funct7 fields for specific
+    ALU operations.\
+-   **`branch_logic.sv`** --- Evaluates branch conditions and determines
+    branch decisions.
+
+### **Datapath**
+
+-   **`datapath.sv`** --- Connects the ALU, register file, immediate
+    logic, and multiplexers.\
+-   **`regfile.sv`** --- 32×32 register file with two read ports and one
+    write port (x0 = 0).\
+-   **`alu.sv`** --- Implements arithmetic, logical, and shift
+    operations.\
+-   **`adder.sv`** --- Simple adder for PC increment and branch
+    targets.\
+-   **`imm_extend.sv`** --- Extracts and sign-extends immediates for all
+    instruction types.\
+-   **`load_extender.sv`** --- Extends byte/halfword loads with correct
+    sign or zero extension.
+
+### **Memory & I/O**
+
+-   **`imem.sv`** --- Instruction memory (read-only, initialized from
+    file).\
+-   **`dmem.sv`** --- Data memory (read/write) with byte and halfword
+    granularity.
+
+### **Utility / Infrastructure**
+
+-   **`mux2_1.sv`, `mux3_1.sv`, `mux4_1.sv`** --- Multiplexers used
+    throughout the datapath.\
+-   **`ff_r.sv`, `ff_enr.sv`** --- Flip-flops with reset and optional
+    enable.
 
 ------------------------------------------------------------------------
 
@@ -43,19 +96,21 @@ simple memory models.
 
 You'll need: - **Icarus Verilog** or **Verilator** for simulation\
 - **GTKWave** for waveform viewing\
-- (Optional) **RARS** or **Spike** for assembling RISC-V test programs
+- (Optional) **RARS** or **Spike** for assembling and running RISC-V
+programs
 
 ### Build & Run
 
+Using Makefile (if available):
+
 ``` bash
-# Compile and run simulation
 make run
 ```
 
-or manually:
+Or manually:
 
 ``` bash
-iverilog -o simv src/*.v tb/*.v
+iverilog -o simv src/*.sv tb/*.sv
 vvp simv
 gtkwave dump.vcd
 ```
@@ -64,7 +119,7 @@ gtkwave dump.vcd
 
 ## Example
 
-To run a simple test program:
+To run a sample assembly program:
 
 ``` bash
 cd asm
@@ -76,14 +131,14 @@ make run
 
 ## Future Work
 
--   Add support for `sb`, `sh`, and other remaining instructions\
--   Implement a pipelined version\
--   Add hazard detection and forwarding\
--   Integrate instruction/data caches
+-   Add compressed (`C`) and multiplication (`M`) extensions\
+-   Implement a pipelined version with hazard detection\
+-   Add instruction and data cache modules\
+-   Extend verification with self-checking testbenches
 
 ------------------------------------------------------------------------
 
 ## License
 
-This project is licensed under the **MIT License** -- see the
+This project is released under the **MIT License** -- see the
 [LICENSE](LICENSE) file for details.
