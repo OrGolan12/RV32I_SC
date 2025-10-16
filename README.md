@@ -50,11 +50,11 @@ Key features: - Complete **RV32I base instruction set** support
 ### **Control Path**
 
 -   **`controller.sv`** --- Generates control signals and coordinates
-    the instruction flow.\
+    the instruction flow
 -   **`main_decoder.sv`** --- Decodes opcodes into high-level control
-    signals (e.g., RegWrite, ALUSrc, MemToReg).\
+    signals (e.g., RegWrite, ALUSrc, MemToReg)
 -   **`alu_decoder.sv`** --- Decodes funct3/funct7 fields for specific
-    ALU operations.\
+    ALU operations
 -   **`branch_logic.sv`** --- Evaluates branch conditions and determines
     branch decisions.
 
@@ -94,9 +94,9 @@ Key features: - Complete **RV32I base instruction set** support
 
 ## Future Work
 
--   Add compressed (`C`) and multiplication (`M`) extensions\
--   Implement a pipelined version with hazard detection\
--   Add instruction and data cache modules\
+-   Add compressed (`C`) and multiplication (`M`) extensions
+-   Implement a pipelined version with hazard detection
+-   Add instruction and data cache modules
 -   Extend verification with self-checking testbenches
 
 ------------------------------------------------------------------------
