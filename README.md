@@ -47,19 +47,6 @@ Key features: - Complete **RV32I base instruction set** support
 -   **`rv32i_sc.sv`** --- Main CPU core integrating the controller and
     datapath.
 
-### **Control Path**
-
--   **`controller.sv`** --- Generates control signals and coordinates
-    the instruction flow
--   **`main_decoder.sv`** --- Decodes opcodes into high-level control
-    signals (e.g., RegWrite, ALUSrc, MemToReg)
--   **`alu_decoder.sv`** --- Decodes funct3/funct7 fields for specific
-    ALU operations
--   **`branch_logic.sv`** --- Evaluates branch conditions and determines
-    branch decisions.
-
-<img width="1193" height="983" alt="controller drawio (3)" src="https://github.com/user-attachments/assets/57dbcb31-f7d2-4510-a769-4e29a5a8e6c3" />
-
 ### **Datapath**
 
 -   **`datapath.sv`** --- Connects the ALU, register file, immediate
@@ -75,8 +62,20 @@ Key features: - Complete **RV32I base instruction set** support
 -   **`load_extender.sv`** --- Extends byte/halfword loads with correct
     sign or zero extension.
 
-<img width="1760" height="753" alt="RV32I_SC" src="https://github.com/user-attachments/assets/61bf6164-7f5f-4f3c-9e69-a7535b6f77fa" />
+<img width="1913" height="971" alt="datapath (2)" src="https://github.com/user-attachments/assets/2b300947-faee-4d7d-940c-74d2c9d4bfa6" />
 
+### **Control Path**
+
+-   **`controller.sv`** --- Generates control signals and coordinates
+    the instruction flow
+-   **`main_decoder.sv`** --- Decodes opcodes into high-level control
+    signals (e.g., RegWrite, ALUSrc, MemToReg)
+-   **`alu_decoder.sv`** --- Decodes funct3/funct7 fields for specific
+    ALU operations
+-   **`branch_logic.sv`** --- Evaluates branch conditions and determines
+    branch decisions.
+
+<img width="1193" height="983" alt="controller drawio (3)" src="https://github.com/user-attachments/assets/57dbcb31-f7d2-4510-a769-4e29a5a8e6c3" />
 
 ### **Memory & I/O**
 
