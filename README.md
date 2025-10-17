@@ -43,7 +43,7 @@ Key features: - Complete **RV32I base instruction set** support
 ### **Top-Level**
 
 -   **`top.sv`** --- SoC wrapper; instantiates CPU (`rv32i_sc`),
-    instruction memory, and data memory.\
+    instruction memory, and data memory
 -   **`rv32i_sc.sv`** --- Main CPU core integrating the controller and
     datapath.
 
@@ -57,6 +57,8 @@ Key features: - Complete **RV32I base instruction set** support
     ALU operations
 -   **`branch_logic.sv`** --- Evaluates branch conditions and determines
     branch decisions.
+
+<img width="1193" height="983" alt="controller drawio (3)" src="https://github.com/user-attachments/assets/57dbcb31-f7d2-4510-a769-4e29a5a8e6c3" />
 
 ### **Datapath**
 
