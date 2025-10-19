@@ -92,7 +92,13 @@ Key features: - Complete **RV32I base instruction set** support
     enable.
 
 ------------------------------------------------------------------------
-
+### How to Run
+```bash
+# From project root
+iverilog -g2012 -s rv32i_sc_tb -o sim/rv32i_sc.vvp src/*.sv tb/*.sv
+vvp sim/rv32i_sc.vvp
+```
+------------------------------------------------------------------------
 ## Future Work
 
 -   Add compressed (`C`) and multiplication (`M`) extensions
